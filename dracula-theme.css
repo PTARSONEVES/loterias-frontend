@@ -1,0 +1,97 @@
+/* ===== TEMA DRACULA ===== */
+body.dracula-mode {
+  --bg-primary: #282a36;
+  --bg-secondary: #44475a;
+  --bg-card: #44475a;
+  --text-primary: #f8f8f2;
+  --text-secondary: #bd93f9;
+  --text-muted: #6272a4;
+  --border-color: #bd93f9;
+  --accent: #50fa7b;
+  --link-color: #8be9fd;
+  --table-header-bg: #6272a4;
+  --table-row-hover: #44475a;
+  --shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* Aplicar as variáveis quando a classe dracula-mode estiver ativa */
+body.dracula-mode {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body.dracula-mode h1, 
+body.dracula-mode h2, 
+body.dracula-mode h3 {
+  color: var(--text-secondary);
+}
+
+body.dracula-mode nav a {
+  color: var(--link-color);
+}
+
+body.dracula-mode #conteudo {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+}
+
+body.dracula-mode table {
+  background-color: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+body.dracula-mode th {
+  background-color: var(--table-header-bg);
+  color: var(--text-primary);
+}
+
+body.dracula-mode td {
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+body.dracula-mode tr:hover {
+  background-color: var(--table-row-hover);
+}
+
+body.dracula-mode select, 
+body.dracula-mode option {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dracula-mode a {
+  color: var(--link-color);
+}
+
+body.dracula-mode .toggle-theme-btn {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+/* ===== ESTILOS PARA TABELAS (tema Dracula) ===== */
+table td, table th {
+  font-size: 0.85rem;
+  padding: 6px 8px;
+}
+
+table td.col-dezena {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+table td.align-right {
+  text-align: right;
+  font-family: 'Courier New', monospace;
+}
+
+table th {
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 6px 8px;
+}
