@@ -14,11 +14,9 @@ body.dracula-mode {
   --shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
-/* Aplicar as variáveis quando a classe dracula-mode estiver ativa */
 body.dracula-mode {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 body.dracula-mode h1, 
@@ -74,24 +72,6 @@ body.dracula-mode .toggle-theme-btn {
   border: 1px solid var(--border-color);
 }
 
-/* ===== ESTILOS PARA TABELAS (tema Dracula) ===== */
-table td, table th {
-  font-size: 0.85rem;
-  padding: 6px 8px;
-}
-
-table td.col-dezena {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-table td.align-right {
-  text-align: right;
-  font-family: 'Courier New', monospace;
-}
-
-table th {
-  font-size: 0.75rem;
-  text-align: center;
-  padding: 6px 8px;
+body.dracula-mode #conteudo canvas {
+  background-color: transparent;
 }

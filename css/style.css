@@ -99,32 +99,22 @@ select, option {
   margin-top: 20px;
 }
 
-/* No tema Dracula, o gráfico precisa de fundo transparente */
-body.dracula-mode #conteudo canvas {
-  background-color: transparent;
-}
-
-/* ===== ESTILOS PARA TABELAS ===== */
-
-/* Fonte menor para todos os campos, exceto dezenas */
+/* Tabelas otimizadas */
 table td, table th {
-  font-size: 0.85rem; /* 14px aprox. */
+  font-size: 0.85rem;
   padding: 6px 8px;
 }
 
-/* Dezenas (bl01 a bl15, bl1 a bl6) - fonte maior e em negrito */
 table td.col-dezena {
   font-size: 1.1rem;
   font-weight: bold;
 }
 
-/* Campos monetários e numéricos - alinhados à direita */
 table td.align-right {
   text-align: right;
-  font-family: 'Courier New', monospace; /* para alinhamento perfeito */
+  font-family: 'Courier New', monospace;
 }
 
-/* Cabeçalho das colunas - centralizado e com fonte menor */
 table th {
   font-size: 0.75rem;
   text-align: center;

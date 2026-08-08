@@ -457,9 +457,9 @@ async function simular() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         nivelRisco: nivel,
-        nciclos: 100,
-        njogos: 10,
-        intervalo: 1,
+        nciclos: 1,
+        njogos: 100,
+        intervalo: 9,
         seqbase: 0
       })
     });
@@ -576,6 +576,86 @@ function copiarApostas() {
     alert('Apostas copiadas!');
   });
 }
+// ============================================================
+// CONTROLE DE ATUALIZAÇÃO
+// ============================================================
+
+// Variável para controlar o intervalo de progresso
+let intervaloProgresso = null;
+
+// Função para mostrar o modal
+function mostrarModalAtualizacao() {
+  const modal = document.getElementById('modalAtualizacao');
+  const barra = document.getElementById('barraProgresso');
+  const status = document.getElementById('statusAtualizacao');
+  
+  modal.style.display = 'flex';
+  barra.style.width = '0%';
+  status.textContent = 'Iniciando...';
+  
+  // Simula progresso (enquanto o processo real roda)
+  let progresso = 0;
+  intervaloProgresso = setInterval(() => {
+    progresso += Math.random() * 5;
+    if (progresso > 90) progresso = 90;
+    barra.style.width = progresso + '%';
+    if (progresso < 30) status.textContent = 'Desbloqueando arquivos...';
+    else if (progresso < 60) status.textContent = 'Convertendo dados...';
+    else if (progresso < 90) status.textContent = 'Atualizando banco de dados...';
+  }, 300);
+}
+
+// Função para esconder o modal
+function esconderModalAtualizacao(sucesso = true) {
+  if (intervaloProgresso) {
+    clearInterval(intervaloProgresso);
+    intervaloProgresso = null;
+  }
+  
+  const modal = document.getElementById('modalAtualizacao');
+  const barra = document.getElementById('barraProgresso');
+  const status = document.getElementById('statusAtualizacao');
+  
+  if (sucesso) {
+    barra.style.width = '100%';
+    status.textContent = '✅ Atualização concluída!';
+    setTimeout(() => {
+      modal.style.display = 'none';
+      // Recarrega os dados automaticamente
+      carregar('ultimos', document.getElementById('loteria').value);
+    }, 1500);
+  } else {
+    status.textContent = '❌ Erro na atualização. Tente novamente.';
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 3000);
+  }
+}
+
+// Função principal: executa a atualização via API
+async function executarAtualizacao() {
+  // Mostra o modal
+  mostrarModalAtualizacao();
+  
+  try {
+    // Chama a rota de atualização no back-end
+    const resposta = await fetch('http://localhost:3000/api/atualizar', {
+      method: 'POST'
+    });
+    
+    const dados = await resposta.json();
+    
+    if (dados.erro) {
+      esconderModalAtualizacao(false);
+      console.error('Erro na atualização:', dados.erro);
+    } else {
+      esconderModalAtualizacao(true);
+    }
+  } catch (erro) {
+    esconderModalAtualizacao(false);
+    console.error('Erro de conexão:', erro);
+  }
+}
 
 // ============================================================
 // 6. EXPOR FUNÇÕES GLOBALMENTE
@@ -585,5 +665,6 @@ window.comparar = comparar;
 window.carregar = carregar;
 window.montarTabela = montarTabela;
 window.alternarTema = alternarTema;
+window.executarAtualizacao = executarAtualizacao;
 
 console.log('✅ Script com gráficos carregado!');

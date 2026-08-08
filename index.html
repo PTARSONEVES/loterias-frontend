@@ -3,31 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <title>Analisador de Loterias</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="dracula-theme.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dracula-theme.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  
   <!-- Botão de alternância de tema -->
-  <button class="toggle-theme-btn" id="toggleTheme" onclick="alternarTema()">
+  <button class="toggle-theme-btn" id="toggleTheme" onclick="tema.alternarTema()">
     🌙 Modo Escuro
   </button>
 
   <h1>📊 Analisador Estatístico de Loterias</h1>
   
-  <div>
+  <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
     <label>Escolha a loteria:</label>
     <select id="loteria">
+      <option value="megasena" selected>Mega-Sena</option>
       <option value="lotofacil">Lotofácil</option>
-      <option value="megasena">Mega-Sena</option>
     </select>
+    <button onclick="atualizarDados()" style="padding: 6px 12px; background: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer;">
+      🔄 Atualizar Dados
+    </button>
   </div>
-
   <nav>
     <a href="#" onclick="carregar('ultimos', document.getElementById('loteria').value)">Últimos Sorteios</a>
     <a href="#" onclick="carregar('frequencia', document.getElementById('loteria').value)">Frequência por Coluna</a>
   </nav>
+
+  <div id="conteudo"></div>
 
   <hr style="margin: 30px 0;">
 
@@ -36,36 +39,38 @@
 
   <div style="display: flex; gap: 10px; flex-wrap: wrap;">
     <input type="text" id="inputNumeros" placeholder="Ex: 5,12,23,34,45,58" style="flex: 1; min-width: 200px; padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
-    <button onclick="comparar()" style="padding: 8px 20px; border-radius: 4px; border: none; background: #2c3e50; color: white; cursor: pointer;">Comparar</button>
+    <button onclick="controllers.comparador.comparar()" style="padding: 8px 20px; border-radius: 4px; border: none; background: #2c3e50; color: white; cursor: pointer;">Comparar</button>
   </div>
 
-  <div id="resultadoComparador" style="margin-top: 20px;">
-    <div id="graficoPizzaContainer" style="max-width: 300px; margin: 0 auto 20px; display: none;"></div>
-    <div id="tabelaComparador"></div>    
-  </div>  
+  <div id="resultadoComparador" style="margin-top: 20px;"></div>
 
-<hr style="margin: 30px 0;">
+  <hr style="margin: 30px 0;">
 
-<h2>🎯 Gerador de Apostas Inteligente</h2>
-<p>Escolha um nível de risco. O algoritmo simulará a quantidade de cartões gerados.</p>
+  <h2>🎯 Gerar Apostas Inteligentes</h2>
+  <p>Escolha o nível de risco e veja os jogos gerados pelo algoritmo.</p>
 
-<div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
-  <label>Nível de risco:</label>
-  <select id="nivelRisco">
-    <option value="baixo">🔵 Baixo (mais filtros)</option>
-    <option value="medio" selected>🟡 Médio (equilibrado)</option>
-    <option value="alto">🔴 Alto (menos filtros)</option>
-  </select>
+  <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+    <label>Nível de risco:</label>
+    <select id="nivelRisco">
+      <option value="baixo">🔵 Baixo (mais filtros)</option>
+      <option value="medio" selected>🟡 Médio (equilibrado)</option>
+      <option value="alto">🔴 Alto (menos filtros)</option>
+    </select>
 
-  <button onclick="simular()" style="padding: 8px 20px; background: #2c3e50; color: white; border: none; border-radius: 4px; cursor: pointer;">Simular</button>
-</div>
+    <button onclick="controllers.gerador.gerar()" style="padding: 8px 20px; background: #2c3e50; color: white; border: none; border-radius: 4px; cursor: pointer;">🎲 Gerar Apostas</button>
+  </div>
 
-<div id="resultadoSimulacao" style="margin-top: 20px;"></div>
-<div id="resultadoGeracao" style="margin-top: 20px;"></div>  
+  <div id="resultadoGeracao" style="margin-top: 20px;"></div>
 
-  <div id="conteudo"></div>
-
-  <!-- Script no final do body -->
-  <script src="script.js"></script>
+  <script src="js/utils/formatadores.js"></script>
+  <script src="js/utils/tema.js"></script>
+  <script src="js/models/api.js"></script>
+  <script src="js/views/tabelas.js"></script>
+  <script src="js/views/graficos.js"></script>
+  <script src="js/views/geracao.js"></script>
+  <script src="js/controllers/comparadorController.js"></script>
+  <script src="js/controllers/geradorController.js"></script>
+  <script src="js/controllers/atualizacaoController.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
