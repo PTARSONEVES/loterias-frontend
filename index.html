@@ -20,6 +20,7 @@
     <select id="loteria">
       <option value="megasena" selected>Mega-Sena</option>
       <option value="lotofacil">Lotofácil</option>
+      <option value="quina">Quina</option>
     </select>
     <button onclick="atualizarDados()" style="padding: 6px 12px; background: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer;">
       🔄 Atualizar Dados
@@ -46,22 +47,29 @@
 
   <hr style="margin: 30px 0;">
 
-  <h2>🎯 Gerar Apostas Inteligentes</h2>
-  <p>Escolha o nível de risco e veja os jogos gerados pelo algoritmo.</p>
+<h2>🎯 Gerar Apostas</h2>
+<p>Escolha o modelo de geração e clique em "Gerar Apostas".</p>
 
-  <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-    <label>Nível de risco:</label>
-    <select id="nivelRisco">
-      <option value="baixo">🔵 Baixo (mais filtros)</option>
-      <option value="medio" selected>🟡 Médio (equilibrado)</option>
-      <option value="alto">🔴 Alto (menos filtros)</option>
+<div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+  <div>
+    <label for="modelo">Modelo:</label>
+    <select id="modelo" onchange="atualizarOpcao()">
+      <option value="1">📌 Modelo 1 – Definir quantidade</option>
+      <option value="2">🤖 Modelo 2 – Automático</option>
     </select>
-
-    <button onclick="controllers.gerador.gerar()" style="padding: 8px 20px; background: #2c3e50; color: white; border: none; border-radius: 4px; cursor: pointer;">🎲 Gerar Apostas</button>
   </div>
 
-  <div id="resultadoGeracao" style="margin-top: 20px;"></div>
+  <div id="campoOpcao">
+    <label for="opcao">Quantidade de cartões:</label>
+    <input type="number" id="opcao" min="1" value="10" style="width: 80px; padding: 6px;">
+  </div>
 
+  <button onclick="controllers.gerador.gerar()" style="padding: 8px 20px; background: #2c3e50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+    🎲 Gerar Apostas
+  </button>
+</div>
+
+<div id="resultadoGeracao" style="margin-top: 20px;"></div>
   <script src="js/utils/formatadores.js"></script>
   <script src="js/utils/tema.js"></script>
   <script src="js/models/api.js"></script>

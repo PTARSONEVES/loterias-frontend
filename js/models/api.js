@@ -2,7 +2,8 @@
 // js/models/api.js
 // ============================================================
 
-const API_BASE = 'http://localhost:3000/api';
+//const API_BASE = 'http://localhost:3000/api';
+const API_BASE = '/api';
 
 async function buscarUltimosSorteios() {
   const resposta = await fetch(`${API_BASE}/megasena/ultimos-sorteios`);
@@ -19,15 +20,6 @@ async function compararMega(numeros) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ numeros })
-  });
-  return resposta.json();
-}
-
-async function gerarMega(nivelRisco) {
-  const resposta = await fetch(`${API_BASE}/megasena/gerar`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nivelRisco })
   });
   return resposta.json();
 }
@@ -51,22 +43,34 @@ async function compararLotofacil(numeros) {
   return resposta.json();
 }
 
-async function gerarLotofacil(nivelRisco) {
-  const resposta = await fetch(`${API_BASE}/lotofacil/gerar`, {
+async function gerarApostas(loteria, modelo, opcao) {
+  const resposta = await fetch(`${API_BASE}/${loteria}/gerar`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nivelRisco })
+    body: JSON.stringify({ modelo, opcao })
   });
   return resposta.json();
 }
 
-async function gerarApostas(loteria, nivelRisco) {
-  if (loteria === 'megasena') {
-    return await gerarMega(nivelRisco);
-  } else if (loteria === 'lotofacil') {
-    return await gerarLotofacil(nivelRisco);
-  }
+async function buscarUltimosSorteiosQuina() {
+  const resposta = await fetch(`${API_BASE}/quina/ultimos-sorteios`);
+  return resposta.json();
 }
+
+async function buscarFrequenciaQuina() {
+  const resposta = await fetch(`${API_BASE}/quina/frequencia-colunas`);
+  return resposta.json();
+}
+
+async function compararQuina(numeros) {
+  const resposta = await fetch(`${API_BASE}/quina/comparar`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ numeros })
+  });
+  return resposta.json();
+}
+
 
 // Expõe para outros módulos
 window.api = {
@@ -75,8 +79,9 @@ window.api = {
   buscarUltimosSorteiosLotofacil,
   buscarFrequenciaLotofacil,
   compararLotofacil,
-  gerarLotofacil,
   compararMega,
-  gerarMega,
+  buscarUltimosSorteiosQuina,
+  buscarFrequenciaQuina,
+  compararQuina,
   gerarApostas
 };

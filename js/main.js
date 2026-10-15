@@ -9,18 +9,14 @@ async function carregar(tipo, loteria) {
   try {
     let dados;
     if (tipo === 'ultimos') {
-      if (loteria === 'megasena') {
-        dados = await api.buscarUltimosSorteios();
-      } else {
-        dados = await api.buscarUltimosSorteiosLotofacil();
-      }
+      if (loteria === 'megasena') dados = await api.buscarUltimosSorteios();
+      else if (loteria === 'lotofacil') dados = await api.buscarUltimosSorteiosLotofacil();
+      else if (loteria === 'quina') dados = await api.buscarUltimosSorteiosQuina();
       div.innerHTML = views.tabelas.renderizarTabelaSorteios(dados);
     } else if (tipo === 'frequencia') {
-      if (loteria === 'megasena') {
-        dados = await api.buscarFrequencia();
-      } else {
-        dados = await api.buscarFrequenciaLotofacil();
-      }
+      if (loteria === 'megasena') dados = await api.buscarFrequencia();
+      else if (loteria === 'lotofacil') dados = await api.buscarFrequenciaLotofacil();
+      else if (loteria === 'quina') dados = await api.buscarFrequenciaQuina();
       views.graficos.renderizarGraficoFrequencia(div, dados);
     } else {
       div.innerHTML = 'Tipo de consulta não implementado.';

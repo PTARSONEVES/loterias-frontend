@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro</title>
+</head>
+<body>
+  <form id="form-registro">
+    <input type="text"     name="nome"  placeholder="Nome"  required>
+    <input type="email"    name="email" placeholder="Email" required>
+    <input type="password" name="senha" placeholder="Senha (mín. 8)" required minlength="8">
+    <button type="submit">Cadastrar</button>
+  </form>
+  <p id="msg"></p>
+  <script>
+    document.getElementById('form-registro').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = Object.fromEntries(new FormData(e.target).entries());
+      const msg = document.getElementById('msg');
+
+      const res = await fetch('/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(body),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        msg.textContent = 'Cadastro ok! Redirecionando para login...';
+        setTimeout(() => location.href = '/login.html', 1500);
+      } else {
+        msg.textContent = data.erro || 'Erro ao cadastrar';
+      }
+    });
+  </script>
+</body>
+</html>
